@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useRef } from 'react';
+import BasicTable from './components/BasicTable';
 
 function App() {
+  const [reset, setReset] = useState(false);
+  const tableRef = useRef(null);
+
+  const resetTable = () => {
+    setReset(true);
+    setTimeout(() => {
+      setReset(false);
+    }, 0);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={resetTable}>Reset</button>
+      <BasicTable reset={reset} setReset={setReset} ref={tableRef} />
     </div>
   );
 }
