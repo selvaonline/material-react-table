@@ -6,10 +6,7 @@ function App() {
   const tableRef = useRef(null);
 
   const resetTable = () => {
-    setReset(true);
-    setTimeout(() => {
-      setReset(false);
-    }, 0);
+    setReset(!reset);
   };
 
   return (

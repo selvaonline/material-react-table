@@ -5,19 +5,8 @@ import {
 } from 'material-react-table';
 
 const BasicTable = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState([]);
 
-  useEffect(() => {
-    if (props.reset) {
-      console.log('Reset button clicked');
-      setTableData([]);
-      if (ref.current) {
-        ref.current.scrollTop = 0; // Scroll to the top of the table
-      }
-    }
-  }, [props.reset, ref]);
-
-  const data = useMemo(
+   const data = useMemo(
     () => [
       {
         name: {
@@ -66,9 +55,9 @@ const BasicTable = forwardRef((props, ref) => {
       },
     ],
     []
-  );
-
-  const columns = useMemo(
+   );
+  
+    const columns = useMemo(
     () => [
       {
         accessorKey: 'name.firstName',
@@ -97,16 +86,31 @@ const BasicTable = forwardRef((props, ref) => {
       },
     ],
     []
-  );
-
+    );
+  
   const table = useMaterialReactTable({
     columns,
     data,
   });
+  
+  const [tableData, setTableData] = useState(useMaterialReactTable({
+    columns,
+    data,
+  }));
+
+  useEffect(() => {
+    if (props.reset) {
+      console.log('Reset button clicked');
+      setTableData(table); // Reset the table
+      if (ref.current) {
+        ref.current.scrollTop = 0; // Scroll to the top of the table
+      }
+    }
+  }, [props.reset, ref]);
 
   return (
     <div ref={ref}>
-      <MaterialReactTable table={table} />
+      <MaterialReactTable table={tableData} />
     </div>
   );
 });
