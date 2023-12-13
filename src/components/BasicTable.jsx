@@ -9,6 +9,7 @@ const BasicTable = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (props.reset) {
+      console.log('Reset button clicked');
       setTableData([]);
       if (ref.current) {
         ref.current.scrollTop = 0; // Scroll to the top of the table
@@ -105,7 +106,6 @@ const BasicTable = forwardRef((props, ref) => {
 
   return (
     <div ref={ref}>
-      <button onClick={() => props.setReset(true)}>Reset</button>
       <MaterialReactTable table={table} />
     </div>
   );
